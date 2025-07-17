@@ -7,8 +7,6 @@ After [Bevy CLI](https://github.com/TheBevyFlock/bevy_cli) is installed run...
 ```
 bevy new -t unsignedbytebite/bevy-3d-template my-new-3d-game
 ```
-```
-```
 
 This template uses a project layout that prioritise a multi-plugin pattern for solutions that I find useful.
 
