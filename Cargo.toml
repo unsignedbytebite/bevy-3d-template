@@ -1,0 +1,48 @@
+[package]
+name = "tron-disc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = { version = "0.16.1", features = ["bevy_dev_tools", "file_watcher", "embedded_watcher"] }
+log = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
+tracing = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
+bevy-inspector-egui = "0.31"
+rand = "0.9.1"
+bevy_skein = "0.2.0"
+avian3d = "0.3.1"
+bevy_common_assets = { version = "0.13.0", features = ["yaml"] }
+serde = "1.0.219"
+
+# Enable a small amount of optimization in the dev profile.
+[profile.dev]
+opt-level = 1
+
+# Enable a large amount of optimization in the dev profile for dependencies.
+[profile.dev.package."*"]
+opt-level = 3
+
+# Enable more optimization in the release profile at the cost of compile time.
+[profile.release]
+# Compile the entire crate as one unit.
+# Slows compile times, marginal improvements.
+codegen-units = 1
+
+# Do a second optimization pass over the entire program, including dependencies.
+# Slows compile times, marginal improvements.
+lto = "thin"
+
+# Idiomatic Bevy code often triggers these lints, and the CI workflow treats them as errors.
+# In some cases they may still signal poor code quality however, so consider commenting out these lines.
+[lints.clippy]
+# Bevy supplies arguments to systems via dependency injection, so it's natural for systems to
+# request more than 7 arguments -- which triggers this lint.
+too_many_arguments = "allow"
+
+# Queries that access many components may trigger this lint.
+type_complexity = "allow"
+
+# Remove expensive debug assertions due to <https://github.com/bevyengine/bevy/issues/14291>
+[profile.dev.package.wgpu-types]
+debug-assertions = false
+
