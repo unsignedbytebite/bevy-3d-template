@@ -1,5 +1,7 @@
 # Bevy 3D template
 
+![image](./prev.png)
+
 Create a Bevy project from an opinionated [Bevy](https://bevy.org/) 3D template using [Bevy CLI](https://github.com/TheBevyFlock/bevy_cli).
 
 After [Bevy CLI](https://github.com/TheBevyFlock/bevy_cli) is installed run...
