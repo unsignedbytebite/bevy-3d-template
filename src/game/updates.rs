@@ -8,7 +8,6 @@ use avian3d::prelude::*;
 use bevy::input::keyboard;
 use bevy::math::VectorSpace;
 use bevy::prelude::*;
-use rand::Rng;
 
 pub fn reset_cube(mut q_cube: Query<(&mut Transform, &mut LinearVelocity), With<FallingCube>>) {
     for (mut trans, mut vel) in q_cube {
