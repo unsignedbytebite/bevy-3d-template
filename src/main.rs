@@ -18,7 +18,7 @@ use std::f32::consts::PI;
 const CLEAR_COLOUR: Color = Color::hsv(219.0, 0.58, 0.93);
 const WINDOW_RESOLUTION: (u16, u16) = (1280, 720);
 const TITLE: &str = "{{project-name}}";
-const APP_NAME: &str = "{{project_name}}";
+const APP_NAME: &str = "{{project-name}}";
 const RESIZABLE: bool = true;
 const MOUSE_VISIBLE: bool = true;
 const PHYSICS_DEBUG_RENDER: bool = true;
