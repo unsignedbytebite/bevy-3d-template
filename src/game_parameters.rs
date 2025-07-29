@@ -25,7 +25,7 @@ impl GameParameters {
 }
 
 impl Default for GameParameters {
-    #[cfg(feature = "dev-native")]
+    #[cfg(feature = "dev_native")]
     fn default() -> Self {
         match std::fs::read_to_string("./assets/game_parameters.toml") {
             Ok(content) => match toml::from_str::<GameParameterValues>(&content) {
@@ -47,9 +47,9 @@ impl Default for GameParameters {
         }
     }
 
-    #[cfg(not(feature = "dev-native"))]
+    #[cfg(not(feature = "dev_native"))]
     fn default() -> Self {
-        let content = include_str!("../assets/game_parameters.yaml");
+        let content = include_str!("../assets/game_parameters.toml");
 
         match toml::from_str::<GameParameterValues>(&content) {
             Ok(values) => Self { values },
@@ -65,13 +65,15 @@ impl Default for GameParameters {
 
 pub fn register(mut app: &mut App) {
     app.init_resource::<GameParameters>();
-    app.add_plugins(ResourceInspectorPlugin::<GameParameters>::default());
 
-    #[cfg(feature = "dev-native")]
+    #[cfg(feature = "dev_native")]
     app.add_systems(Update, save_file);
+
+    #[cfg(feature = "dev_native")]
+    info!("Press 'ctrl+s' to save game parameters");
 }
 
-#[cfg(feature = "dev-native")]
+#[cfg(feature = "dev_native")]
 fn save_file(keyboard: Res<ButtonInput<KeyCode>>, game_parameters: Res<GameParameters>) {
     if keyboard.all_pressed([KeyCode::ControlLeft, KeyCode::KeyS]) {
         info!("Save game parameters");
@@ -81,7 +83,7 @@ fn save_file(keyboard: Res<ButtonInput<KeyCode>>, game_parameters: Res<GameParam
                     error!("Cannot save ./assets/game_parameters.toml");
                 }
             }
-            Err(err) => error!("Cannot save ./assets/game_parameters.toml"),
+            Err(err) => error!("Cannot save ./assets/game_parameters.toml : {err:?}"),
         }
     }
 }
