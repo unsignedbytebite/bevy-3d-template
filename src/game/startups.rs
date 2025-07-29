@@ -61,8 +61,3 @@ pub fn create_player(
         FallingCube::default(),
     ));
 }
-
-pub fn load_parameters(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let params = GameParametersHandle(asset_server.load("game_parameters.yaml"));
-    commands.insert_resource(params);
-}

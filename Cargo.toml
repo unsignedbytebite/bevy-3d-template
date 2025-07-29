@@ -7,15 +7,16 @@ edition = "2024"
 bevy = "0.16.1"
 log = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
 tracing = { version = "*", features = ["max_level_debug"] }
-bevy-inspector-egui = "0.31"
+bevy-inspector-egui = "0.32"
 bevy_skein = "0.2.0"
 avian3d = "0.3.1"
-bevy_common_assets = { version = "0.13.0", features = ["yaml"] }
-serde = "1.0.219"
+serde = { version = "1.0.219", features = ["derive"] }
+toml = "0.9.2"
 
 [features]
 # Default to a native dev build.
 default = ["dev_native"]
+
 dev = [
     # Improve compile times for dev builds by linking Bevy as a dynamic library.
     "bevy/dynamic_linking",
@@ -24,6 +25,7 @@ dev = [
     # Improve error messages coming from Bevy
     "bevy/track_location",
 ]
+
 dev_native = [
     "dev",
     # Enable asset hot reloading for native dev builds.
@@ -45,7 +47,6 @@ opt-level = 3
 # Compile the entire crate as one unit.
 # Slows compile times, marginal improvements.
 codegen-units = 1
-
 # Do a second optimization pass over the entire program, including dependencies.
 # Slows compile times, marginal improvements.
 lto = "thin"
@@ -56,10 +57,8 @@ lto = "thin"
 # Bevy supplies arguments to systems via dependency injection, so it's natural for systems to
 # request more than 7 arguments -- which triggers this lint.
 too_many_arguments = "allow"
-
 # Queries that access many components may trigger this lint.
 type_complexity = "allow"
-
 # Make sure macros use their standard braces, such as `[]` for `bevy_ecs::children!`.
 nonstandard_macro_braces = "warn"
 

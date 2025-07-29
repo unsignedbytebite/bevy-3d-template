@@ -1,6 +1,7 @@
 #![allow(warnings)]
 
 mod game;
+mod game_parameters;
 
 use avian3d::prelude::*;
 use bevy::{
@@ -111,6 +112,8 @@ fn main() {
     );
 
     app.insert_resource(ClearColor(CLEAR_COLOUR));
+
+    game_parameters::register(&mut app);
 
     info!("Press 'F1' to toggle dev mode");
     app.run();

@@ -1,10 +1,9 @@
 use super::{
     components, events,
-    resources::{self, GameParameters},
+    resources::{self},
     startups, states, updates,
 };
 use bevy::{ecs::schedule::BoxedCondition, prelude::*};
-use bevy_common_assets::yaml::YamlAssetPlugin;
 use std::sync::Mutex;
 
 #[derive(Default)]
@@ -27,9 +26,7 @@ impl Game {
 impl Plugin for Game {
     fn build(&self, app: &mut App) {
         // Plugins
-        app.add_plugins(YamlAssetPlugin::<GameParameters>::new(&[
-            "game_parameters.yaml",
-        ]));
+        // none
 
         // Registers
         app.register_type::<components::FallingCube>();
@@ -44,7 +41,6 @@ impl Plugin for Game {
         // none
 
         // Setups
-        app.add_systems(PreStartup, startups::load_parameters);
         app.add_systems(
             Startup,
             (
